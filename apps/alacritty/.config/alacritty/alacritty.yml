@@ -18,7 +18,7 @@ font:
 live_config_reload: false
 
 mouse:
-  url:
+  hints:
     launcher:
       program: none
 

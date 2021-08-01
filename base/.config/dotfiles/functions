@@ -80,11 +80,28 @@ mdl () {
     usage $# 1 'youtube-dl + ffmpeg (opus 96k reencode) music downloader' \
         "$0 music-url" || return $?
 
+    case "$1" in
+        *playlist*) die "Use mpdl for playlists." || return $? ;;
+    esac
+
     youtube-dl --ignore-config --ignore-errors \
         -x --audio-format best \
         --postprocessor-args '-c:a libopus -b:a 96K' \
         --add-metadata \
         -o "%(title)s [%(id)s].%(ext)s" "$1"
+}
+
+mpdl () {
+    require youtube-dl || return $?
+    require ffmpeg || return $?
+    usage $# 1 'youtube-dl + ffmpeg (opus 96k reencode) music downloader, for playlists' \
+        "$0 music-url" || return $?
+
+    youtube-dl --ignore-config --ignore-errors \
+        -x --audio-format best \
+        --postprocessor-args '-c:a libopus -b:a 96K' \
+        --add-metadata \
+        -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" "$1"
 }
 
 vdl () {

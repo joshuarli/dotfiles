@@ -7,7 +7,7 @@ pathprepend "${PYENV_ROOT}/bin"
 export PATH
 
 if df_require pyenv; then
-    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
 else
     df_warn 'pyenv not found'
 fi
