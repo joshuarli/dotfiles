@@ -9,14 +9,12 @@ output * bg #000000 solid_color
 
 bindsym $mod+Return exec foot
 bindsym Shift+Return exec bemenu-run --no-exec | xargs swaymsg exec --
+bindsym $mod+b exec chromium --ozone-platform=wayland --disable-breakpad --disable-crash-reporter --disable-logging
 
 bindsym $mod+r reload
 bindsym $mod+m fullscreen
 bindsym $mod+k kill
 bindsym $mod+Escape exec swaymsg exit
-
-bindsym $mod+b splith
-bindsym $mod+v splitv
 
 bindsym $mod+e layout toggle split
 bindsym $mod+f floating toggle
@@ -40,3 +38,8 @@ bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
+
+# pw-volume
+bindsym XF86AudioMute exec vol mute toggle
+bindsym XF86AudioRaiseVolume exec vol change +10% 
+bindsym XF86AudioLowerVolume exec vol change -10%
