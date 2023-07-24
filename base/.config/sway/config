@@ -1,5 +1,8 @@
 # don't think openrc has user services
-exec XDG_RUNTIME_DIR=/tmp pipewire
+exec XDG_RUNTIME_DIR=/tmp/xdg pipewire
+# wireplumber requires a dbus session, pipewire does not
+# however i've found pipewire to not work standalone...
+exec dbus-run-session wireplumber
 
 xwayland disable
 set $mod Mod4
@@ -9,7 +12,8 @@ output * bg #000000 solid_color
 
 bindsym $mod+Return exec foot
 bindsym Shift+Return exec bemenu-run --no-exec | xargs swaymsg exec --
-bindsym $mod+b exec chromium --ozone-platform=wayland --disable-breakpad --disable-crash-reporter --disable-logging
+bindsym $mod+b exec firefox-wayland --disable-pinch --MOZ_LOG_FILE=/dev/null
+# bindsym $mod+b exec chromium --ozone-platform=wayland --disable-breakpad --disable-crash-reporter --disable-logging
 
 bindsym $mod+r reload
 bindsym $mod+m fullscreen

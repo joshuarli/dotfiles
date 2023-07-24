@@ -1,5 +1,4 @@
-alias sway='XDG_RUNTIME_DIR=/tmp sway'
-alias syncthing='syncthing serve --no-browser --no-upgrade --skip-port-probing --gui-address=http://127.0.0.1:6969'
+alias sway='XDG_RUNTIME_DIR=/tmp/xdg sway'
 alias tmux="tmux -f ${XDG_CONFIG_HOME}/tmux/tmux.conf"
 
 alias ..='cd ..'
@@ -58,3 +57,44 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
+
+function df_basename () {
+    dir=${1%${1##*[!/]}}
+    dir=${dir##*/}
+    printf %s "${dir:-/}"
+}
+
+function df_dirname () {
+    dir=${1:-.}
+    dir=${dir%%"${dir##*[!/]}"}
+    [ "${dir##*/*}" ] && dir=.
+    dir=${dir%/*}
+    dir=${dir%%"${dir##*[!/]}"}
+    printf %s "${dir:-/}"
+}
+
+function df_stripext () {
+    printf %s "${1%.*}"
+}
+
+function df_getext () {
+    printf %s "${1##*.}"
+}
+
+function vcut () {
+    fp="$1"
+    fn="$(df_basename "$fp")"
+    fd="$(df_dirname "$fp")"
+    fn_noext="$(df_stripext "$fn")"
+    fe="$(df_getext "$fn")"
+    ffmpeg -i "$fp" -ss "$2" -to "$3" -c copy "${fd}/${fn_noext}-cut-${2}-${3}.${fe}"
+}
+
+function ecount () {
+    fd -tf --color=never | awk -F. 'NF > 1 {print tolower($NF)}' | sort | uniq -c | sort -n
+}
+
+function webp-to-jpg () {
+    # need to implement a rm if success in vips_webpsave
+    fd -tf -e webp --color=never -0 -x vips copy {} {.}.jpg
+}
