@@ -4,6 +4,7 @@ function df_require () {
 
 alias sway='XDG_RUNTIME_DIR=/tmp/xdg sway'
 
+alias c='clear'
 alias ..='cd ..'
 alias ls='ls -F --color=always -v'
 alias l='ls -p'

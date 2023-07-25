@@ -1,24 +1,4 @@
 {
     "Alt-/": "lua:comment.comment",
-    "Alt-Backspace": "DeleteWordLeft",
-    "Alt-Tab": "IndentLine",
-    "AltDown": "MoveLinesDown",
-    "AltLeft": "WordLeft",
-    "AltRight": "WordRight",
-    "AltUp": "MoveLinesUp",
-    "CtrlJ": "JumpLine",
-    "CtrlLeft": "StartOfLine",
-    "CtrlP": "CommandMode",
-    "CtrlRight": "EndOfLine",
-    "CtrlShiftDown": "SelectToEnd",
-    "CtrlShiftUp": "SelectToStart",
-    "CtrlU": "Undo",
-    "CtrlUnderscore": "lua:comment.comment",
-    "CtrlY": "Redo",
-    "CtrlZ": "Suspend",
-    "ShiftDown": "SelectDown",
-    "ShiftLeft": "SelectToStartOfLine",
-    "ShiftRight": "SelectToEndOfLine",
-    "ShiftUp": "SelectUp",
-    "Tab": "IndentSelection|InsertTab"
+    "CtrlUnderscore": "lua:comment.comment"
 }

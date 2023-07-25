@@ -1,6 +1,6 @@
 {
     "autoclose": false,
-    "colorscheme": "simple",
+    "clipboard": "terminal",
     "diff": false,
     "fastdirty": true,
     "ftoptions": false,

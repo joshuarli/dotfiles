@@ -15,6 +15,8 @@ bindsym Shift+Return exec bemenu-run --no-exec | xargs swaymsg exec --
 bindsym $mod+b exec firefox-wayland --disable-pinch --MOZ_LOG_FILE=/dev/null
 # bindsym $mod+b exec chromium --ozone-platform=wayland --disable-breakpad --disable-crash-reporter --disable-logging
 
+bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
+
 bindsym $mod+r reload
 bindsym $mod+m fullscreen
 bindsym $mod+k kill
