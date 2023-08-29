@@ -12,8 +12,7 @@ output * bg #000000 solid_color
 
 bindsym $mod+Return exec foot
 bindsym Shift+Return exec bemenu-run --no-exec | xargs swaymsg exec --
-bindsym $mod+b exec firefox-wayland --disable-pinch --MOZ_LOG_FILE=/dev/null
-# bindsym $mod+b exec chromium --ozone-platform=wayland --disable-breakpad --disable-crash-reporter --disable-logging
+bindsym $mod+b exec waterfox --MOZ_LOG_FILE=/dev/null
 
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 

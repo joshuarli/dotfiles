@@ -2,7 +2,10 @@ function df_require () {
     command -v "$1" 2>&1 > /dev/null
 }
 
-alias sway='XDG_RUNTIME_DIR=/tmp/xdg sway'
+function sw () {
+	mkdir /tmp/xdg
+	XDG_RUNTIME_DIR=/tmp/xdg sway
+}
 
 alias c='clear'
 alias ..='cd ..'
