@@ -265,7 +265,7 @@ function vdl () {
         -f 'bestvideo[height<=720]+bestaudio/best[height<=720]' \
         --write-sub --sub-lang=en --sub-format=srt --convert-subs=srt \
         --add-metadata \
-        --merge-output-format mkv \
+        --merge-output-format mp4 \
         -o "%(title)s [%(id)s].%(ext)s" "$1"
 }
 

@@ -1,18 +1,3 @@
-# eval "$(direnv hook zsh)"
-_direnv_hook() {
-  trap -- '' SIGINT;
-  eval "$("/Users/josh/bin/direnv" export zsh)";
-  trap - SIGINT;
-}
-typeset -ag precmd_functions;
-if [[ -z ${precmd_functions[(r)_direnv_hook]} ]]; then
-  precmd_functions=( _direnv_hook ${precmd_functions[@]} )
-fi
-typeset -ag chpwd_functions;
-if [[ -z ${chpwd_functions[(r)_direnv_hook]} ]]; then
-  chpwd_functions=( _direnv_hook ${chpwd_functions[@]} )
-fi
-
 function prompt_git () {
     cur_branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)" || return
     # [ -z "$(git status --porcelain -unormal)" ] || printf %s ' *'
@@ -21,8 +6,3 @@ function prompt_git () {
 }
 setopt PROMPT_SUBST
 export PS1='%n@%M %1d $(prompt_git) $ '
-
-export PATH="${HOME}/google-cloud-sdk/bin:${HOME}/.krew/bin:${PATH}"
-export CLOUDSDK_PYTHON=/Users/josh/python-3.8.14+0-macosx_12_0_x86_64/bin/python3.8
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
