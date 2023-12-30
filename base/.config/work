@@ -6,3 +6,13 @@ function prompt_git () {
 }
 setopt PROMPT_SUBST
 export PS1='%n@%M %1d $(prompt_git) $ '
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/josh/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/josh/bin/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/josh/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/josh/bin/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="/Users/josh/.local/share/sentry-devenv/bin:$PATH"
+eval "$(direnv hook zsh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"

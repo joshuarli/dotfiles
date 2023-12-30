@@ -16,5 +16,10 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export LESSHISTFILE="${XDG_DATA_HOME}/less_history"
 
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_ANALYTICS=1
+
 export ENV="${HOME}/.kshrc"
 export PATH="${HOME}/usr/bin:${PATH}"
