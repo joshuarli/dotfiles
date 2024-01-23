@@ -1,5 +1,3 @@
-echo hi
-
 df_require () {
     command -v "$1" 2>&1 > /dev/null
 }
@@ -152,17 +150,15 @@ mdl () {
         *playlist*) echo "Use mpdl for playlists."; return 1 ;;
     esac
 
-    python3 -m yt_dlp --ignore-config --ignore-errors \
-        -x --audio-format best \
-        --postprocessor-args '-c:a libopus -b:a 96K' \
+    python3 -m yt_dlp --ignore-config \
+        -f 'ba[ext=m4a]' \
         --add-metadata \
         -o "%(title)s [%(id)s].%(ext)s" "$1"
 }
 
 mpdl () {
     python3 -m yt_dlp --ignore-config --ignore-errors \
-        -x --audio-format best \
-        --postprocessor-args '-c:a libopus -b:a 96K' \
+        -f 'ba[ext=m4a]' \
         --add-metadata \
         -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" "$1"
 }
@@ -174,4 +170,14 @@ vdl () {
         --add-metadata \
         --merge-output-format mp4 \
         -o "%(title)s [%(id)s].%(ext)s" "$1"
+}
+
+msdl () {
+  IFS=$'\n' urls=($(python3 -m yt_dlp --ignore-config -f 'ba[ext=m4a]' -g "$1"))
+  ffmpeg -ss $2 -to $3 -i "${urls[1]}" -map 0:a -c:a copy $4
+}
+
+vsdl () {
+  IFS=$'\n' urls=($(python3 -m yt_dlp --ignore-config -g "$1"))
+  ffmpeg -ss $2 -to $3 -i "${urls[0]}" -ss $2 -i "${urls[1]}" -map 0:v -map 1:a $4
 }
