@@ -78,7 +78,7 @@ vcut () {
     fd="$(df_dirname "$fp")"
     fn_noext="$(df_stripext "$fn")"
     fe="$(df_getext "$fn")"
-    ffmpeg -i "$fp" -ss "$2" -to "$3" -c copy "${fd}/${fn_noext}-cut-${2}-${3}.${fe}"
+    ffmpeg -i "$fp" -ss "$2" -to "$3" -c copy "${fd}/${fn_noext}-cut-${2//:/}-${3//:/}.${fe}"
 }
 
 ecount () {
