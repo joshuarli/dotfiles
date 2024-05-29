@@ -1,0 +1,24 @@
+{
+    "autoclose": false,
+    "colorscheme": "simple",
+    "diff": false,
+    "fastdirty": true,
+    "ftoptions": false,
+    "ignorecase": false,
+    "indentchar": "|",
+    "linter": false,
+    "literate": false,
+    "pluginchannels": [
+        "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
+    ],
+    "pluginrepos": [],
+    "rmtrailingws": true,
+    "savecursor": true,
+    "saveundo": true,
+    "softwrap": true,
+    "status": false,
+    "statusformatl": "$(modified)$(filename) ($(line),$(col))",
+    "statusformatr": "",
+    "tabmovement": true,
+    "tabstospaces": true
+}

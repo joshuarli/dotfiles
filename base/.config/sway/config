@@ -1,0 +1,44 @@
+xwayland disable
+set $mod Mod4
+default_border none
+default_floating_border none
+output * bg #000000 solid_color
+
+bindsym $mod+Return exec foot
+bindsym Shift+Return exec bemenu-run --no-exec | xargs swaymsg exec --
+bindsym $mod+b exec MOZ_ENABLE_WAYLAND=1 MOZ_DISABLE_RDD_SANDBOX=1 firefox --MOZ_LOG_FILE=/dev/null
+
+bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
+
+bindsym $mod+r reload
+bindsym $mod+m fullscreen
+bindsym $mod+k kill
+bindsym $mod+Escape exec swaymsg exit
+
+bindsym $mod+e layout toggle split
+bindsym $mod+f floating toggle
+
+bar {
+	status_command i3status
+}
+
+# bindsym $mod+n
+# https://lib.rs/crates/sway-new-workspace
+
+bindsym $mod+Left workspace prev
+bindsym $mod+Right workspace next
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+
+# pw-volume
+bindsym XF86AudioMute exec vol mute toggle
+bindsym XF86AudioRaiseVolume exec vol change +10% 
+bindsym XF86AudioLowerVolume exec vol change -10%

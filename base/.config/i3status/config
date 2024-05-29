@@ -1,0 +1,30 @@
+general {
+	output_format = none
+	separator = "  "
+	interval = 5
+}
+
+order += "memory"
+order += "cpu_usage"
+order += "tztime local"
+order += "battery 0"
+
+memory {
+	format = "mem: %used (%percentage_used)"
+}
+
+cpu_usage {
+	format = "cpu: %usage"
+}
+
+tztime local {
+	format = "%Y-%m-%d %H:%M"
+}
+
+battery 0 {
+	format = "%status %percentage"
+	status_chr = "+"
+	status_bat = "-"
+	path = "/sys/class/power_supply/BAT0/uevent"
+	low_threshold = 20
+}

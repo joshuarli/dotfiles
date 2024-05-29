@@ -1,0 +1,65 @@
+[user]
+    name = Joshua Li
+    email = joshuarli98@gmail.com
+    signingkey = 846B322709634596!
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+
+[core]
+    autocrlf = input
+    pager = delta
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[delta]
+    features = line-numbers decorations
+    syntax-theme = none
+    # Too many colors is distracting.
+    # syntax-theme = Dracula
+    plus-style = green
+    plus-emph-style = green bold
+    minus-style = red
+    minus-emph-style = red bold
+    line-numbers-left-format  = {nm:^4}
+    line-numbers-right-format = {np:^4}
+
+[delta "decorations"]
+    file-style = magenta bold
+    commit-decoration-style = none
+    file-decoration-style = white box
+    hunk-header-style = none
+    hunk-header-decoration-style = white ul
+
+[alias]
+    amend = commit --amend -v
+    b = blame -c --date=short
+    c = checkout
+    d = diff
+    dc = diff --cached
+    s = show
+    l = log --pretty='format:%h %cs (%an)%d %s'
+    unstage = reset --
+
+[push]
+    default = current
+    followTags = false
+
+[branch]
+    autoSetupMerge = always
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+
+[safe]
+	directory = *
