@@ -112,21 +112,21 @@ function mdl
             echo "Use mpdl for playlists."
     end
 
-    python3 -m yt_dlp --ignore-config \
+    yt-dlp --ignore-config \
         -f 'ba[ext=m4a]' \
         --add-metadata \
         -o "%(title)s [%(id)s].%(ext)s" $argv[1]
 end
 
 function mpdl
-    python3 -m yt_dlp --ignore-config --ignore-errors \
+    yt-dlp --ignore-config --ignore-errors \
         -f 'ba[ext=m4a]' \
         --add-metadata \
         -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
 end
 
 function vdl
-    python3 -m yt_dlp --ignore-config --ignore-errors \
+    yt-dlp --ignore-config --ignore-errors \
         -f 'bestvideo[height<=720]+bestaudio/best[height<=720]' \
         --write-sub --sub-lang=en --sub-format=srt --convert-subs=srt \
         --add-metadata \
@@ -185,6 +185,15 @@ function optimize-png
         pngquant --skip-if-larger --quality=90 --strip --speed 1 --ext .png --force \
         < $tmp
     rm -f $tmp
+end
+
+function insta
+    python3.11 -m gallery_dl \
+        -c ~/Sync/Staging/gallery-dl.conf \
+        --write-metadata -P=insta-meta \
+        -D . \
+        $argv[1]
+    # rm .mp4.json
 end
 
 # work
