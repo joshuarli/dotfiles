@@ -112,21 +112,21 @@ function mdl
             echo "Use mpdl for playlists."
     end
 
-    yt-dlp --ignore-config \
+    $HOME/venv/bin/python3.12 -m yt_dlp --ignore-config \
         -f 'ba[ext=m4a]' \
         --add-metadata \
         -o "%(title)s [%(id)s].%(ext)s" $argv[1]
 end
 
 function mpdl
-    yt-dlp --ignore-config --ignore-errors \
+    $HOME/venv/bin/python3.12 -m yt_dlp --ignore-config --ignore-errors \
         -f 'ba[ext=m4a]' \
         --add-metadata \
-        -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
+        -o "%(author)s %(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
 end
 
 function vdl
-    yt-dlp --ignore-config --ignore-errors \
+    $HOME/venv/bin/python3.12 -m yt_dlp --ignore-config --ignore-errors \
         -f 'bestvideo[height<=720]+bestaudio/best[height<=720]' \
         --write-sub --sub-lang=en --sub-format=srt --convert-subs=srt \
         --add-metadata \
@@ -135,12 +135,12 @@ function vdl
 end
 
 function msdl
-    set urls $(IFS=$'\n' python3 -m yt_dlp --ignore-config -f 'ba[ext=m4a]' -g $argv[1])
+    set urls $(IFS=$'\n' $HOME/venv/bin/python3.12 -m yt_dlp --ignore-config -f 'ba[ext=m4a]' -g $argv[1])
     ffmpeg -ss $argv[2] -to $argv[3] -i $urls[1] -map 0:a -c:a copy $argv[4]
 end
 
 function vsdl
-    set urls $(IFS=$'\n' python3 -m yt_dlp --ignore-config -g $argv[1])
+    set urls $(IFS=$'\n' $HOME/venv/bin/python3.12 -m yt_dlp --ignore-config -g $argv[1])
     ffmpeg -ss $argv[2] -to $argv[3] -i $urls[0] -ss $argv[2] -i $urls[1] -map 0:v -map 1:a $argv[4]
 end
 
@@ -188,8 +188,18 @@ function optimize-png
 end
 
 function insta
-    python3.11 -m gallery_dl \
+    $HOME/venv/bin/python3.12 -m gallery_dl \
         -c ~/Sync/Staging/gallery-dl.conf \
+        --no-check-certificate \
+        -D . \
+        $argv[1]
+    # rm .mp4.json
+end
+
+function instam
+    $HOME/venv/bin/python3.12 -m gallery_dl \
+        -c ~/Sync/Staging/gallery-dl.conf \
+        --no-check-certificate \
         --write-metadata -P=insta-meta \
         -D . \
         $argv[1]
