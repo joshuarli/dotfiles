@@ -99,7 +99,7 @@ function vcut
     set fext (string split -r -m1 . $fn)[-1]
     set ss (string replace --all ':' '' $argv[2])
     set to (string replace --all ':' '' $argv[3])
-    ffmpeg -i "$fp" -ss $argv[2] -to $argv[3] -c copy "$fd/$fn_noext-cut-$ss-$to.$fext"
+    ffmpeg -ss $argv[2] -accurate_seek -i "$fp" -to $argv[3] -c copy -map 0 "$fd/$fn_noext-cut-$ss-$to.$fext"
 end
 
 function ecount
