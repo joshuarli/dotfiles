@@ -72,6 +72,10 @@ function fish_prompt
         "$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
 end
 
+function fish_right_prompt
+    fish_status_to_signal $status
+end
+
 function sw
     mkdir /tmp/xdg
     XDG_RUNTIME_DIR=/tmp/xdg sway
@@ -122,7 +126,7 @@ function mpdl
     $HOME/venv/bin/python3.12 -m yt_dlp --ignore-config --ignore-errors \
         -f 'ba[ext=m4a]' \
         --add-metadata \
-        -o "%(author)s %(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
+        -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
 end
 
 function vdl
