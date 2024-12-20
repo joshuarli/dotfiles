@@ -210,6 +210,13 @@ function instam
     # rm .mp4.json
 end
 
+function manga
+    $HOME/usr/py/.venv/bin/python -m mangadex_downloader \
+        -f cbz \
+        --filename-chapter "{chapter.manga_title} Vol.{chapter.volume} Ch.{chapter.chapter}{file_ext}" \
+        $argv[1]
+end
+
 # work
 fish_add_path $HOME/.local/share/sentry-devenv/bin
 eval "$(direnv hook fish)"
