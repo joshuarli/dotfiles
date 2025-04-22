@@ -2,7 +2,7 @@ set -g fish_autosuggestion_enabled 0
 set fish_greeting
 fish_config theme choose none
 
-fish_add_path $HOME/usr/bin /opt/homebrew/bin $HOME/.cargo/bin
+fish_add_path $HOME/usr/bin /opt/homebrew/bin
 
 set -gx EDITOR $HOME/usr/bin/micro
 set -gx PAGER less
@@ -30,6 +30,9 @@ abbr --add e $EDITOR
 abbr --add l /bin/ls
 abbr --add ll /bin/ls -plAhG
 
+abbr --add mpv /Applications/mpv.app/Contents/MacOS/mpv
+abbr --add mp  /Applications/mpv.app/Contents/MacOS/mpv -vo null
+
 abbr --add fd  fd --prune
 abbr --add fdh fd --prune --no-ignore-vcs -H -E '.git/'
 abbr --add rg  rg -S
@@ -56,8 +59,6 @@ abbr --add tl   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" ls
 abbr --add tn   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" new -s
 abbr --add ta   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" a -t
 abbr --add tk   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" kill-session -t
-
-abbr --add mp mpv -vo null
 
 function multicd
     echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
@@ -87,10 +88,6 @@ function sshnew
     chmod 444 -v $HOME/.ssh/$argv[1].pub
 end
 
-function du
-    du -skh .??* * | sort -rh
-end
-
 function vcut
     set fp $argv[1]
     set fn (path basename $fp)
@@ -107,7 +104,7 @@ function ecount
 end
 
 function esize
-    fd --color=never -e $argv[1] -0 | xargs -0 du -hc | awk 'END { print $1 }'
+    fd --color=never -e $argv[1] -0 | xargs -0 /usr/bin/du -hc | awk 'END { print $1 }'
 end
 
 function mdl
@@ -131,7 +128,7 @@ end
 
 function vdl
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config --ignore-errors \
-        -f 'bestvideo[height<=720]+bestaudio/best[height<=720]' \
+        -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' \
         --write-sub --sub-lang=en --sub-format=srt --convert-subs=srt \
         --add-metadata \
         --merge-output-format mp4 \
@@ -189,25 +186,6 @@ function optimize-png
         pngquant --skip-if-larger --quality=90 --strip --speed 1 --ext .png --force \
         < $tmp
     rm -f $tmp
-end
-
-function insta
-    $HOME/usr/py/.venv/bin/python -m gallery_dl \
-        -c ~/Sync/Staging/gallery-dl.conf \
-        --no-check-certificate \
-        -D . \
-        $argv[1]
-    # rm .mp4.json
-end
-
-function instam
-    $HOME/usr/py/.venv/bin/python -m gallery_dl \
-        -c ~/Sync/Staging/gallery-dl.conf \
-        --no-check-certificate \
-        --write-metadata -P=insta-meta \
-        -D . \
-        $argv[1]
-    # rm .mp4.json
 end
 
 function manga
