@@ -46,6 +46,7 @@ abbr --add gl  git log
 abbr --add gp  git push -u
 abbr --add grv git remote -v
 abbr --add gs  git status -sb -uall
+abbr --add gss git diff --name-only --diff-filter=U
 
 function gr
     [ -n $argv[1] ] && git reset HEAD~$argv[1] || git reset
