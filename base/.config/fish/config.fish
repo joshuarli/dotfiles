@@ -38,18 +38,19 @@ abbr --add fdh fd --prune --no-ignore-vcs -H -E '.git/'
 abbr --add rg  rg -S
 abbr --add rgh rg --hidden -S -g '!.git'
 
-abbr --add gaa git add --all
-abbr --add gcm git commit -m
-abbr --add gd  git diff
-abbr --add gdc git diff --cached
-abbr --add gl  git log
-abbr --add gp  git push -u
-abbr --add grv git remote -v
-abbr --add gs  git status -sb -uall
-abbr --add gss git diff --name-only --diff-filter=U
+# apple's /usr/bin/git is way smaller and faster than homebrew's
+abbr --add gaa /usr/bin/git add --all
+abbr --add gcm /usr/bin/git commit -m
+abbr --add gd  /usr/bin/git diff
+abbr --add gdc /usr/bin/git diff --cached
+abbr --add gl  /usr/bin/git log
+abbr --add gp  /usr/bin/git push -u
+abbr --add grv /usr/bin/git remote -v
+abbr --add gs  /usr/bin/git status -sb -uall
+abbr --add gss /usr/bin/git diff --name-only --diff-filter=U
 
 function gr
-    [ -n $argv[1] ] && git reset HEAD~$argv[1] || git reset
+    [ -n $argv[1] ] && /usr/bin/git reset HEAD~$argv[1] || /usr/bin/git reset
 end
 
 function gitroot
@@ -71,7 +72,7 @@ function fish_prompt
         $USER \
         $hostname \
         (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) \
-        "$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+        "$(/usr/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null)"
 end
 
 function fish_right_prompt
