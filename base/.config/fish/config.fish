@@ -56,10 +56,10 @@ function gitroot
     cd "$(git rev-parse --show-toplevel)"
 end
 
-abbr --add tl   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" ls
-abbr --add tn   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" new -s
-abbr --add ta   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" a -t
-abbr --add tk   tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" kill-session -t
+abbr --add tl tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" ls
+abbr --add tn tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" new -s
+abbr --add ta tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" a -t
+abbr --add tk tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" kill-session -t
 
 function multicd
     echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
@@ -89,17 +89,6 @@ function sshnew
     chmod 444 -v $HOME/.ssh/$argv[1].pub
 end
 
-function vcut
-    set fp $argv[1]
-    set fn (path basename $fp)
-    set fd (path dirname $fp)
-    set fn_noext (path change-extension '' $fn)
-    set fext (string split -r -m1 . $fn)[-1]
-    set ss (string replace --all ':' '' $argv[2])
-    set to (string replace --all ':' '' $argv[3])
-    ffmpeg -ss $argv[2] -accurate_seek -i "$fp" -to $argv[3] -c copy -map 0 "$fd/$fn_noext-cut-$ss-$to.$fext"
-end
-
 function ecount
     fd --color=never -tf | awk -F. 'NF > 1 {print tolower($NF)}' | sort | uniq -c | sort -n
 end
@@ -117,7 +106,7 @@ function mdl
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config \
         -f 'ba[ext=m4a]' \
         --add-metadata \
-        -o "%(title)s [%(id)s].%(ext)s" $argv[1]
+        -o "%(title)s [%(id)s].%(ext)s" $argv
 end
 
 function mpdl
@@ -133,7 +122,7 @@ function vdl
         --write-sub --sub-lang=en --sub-format=srt --convert-subs=srt \
         --add-metadata \
         --merge-output-format mp4 \
-        -o "%(title)s [%(id)s].%(ext)s" $argv[1]
+        -o "%(title)s [%(id)s].%(ext)s" $argv
 end
 
 function msdl
@@ -187,13 +176,6 @@ function optimize-png
         pngquant --skip-if-larger --quality=90 --strip --speed 1 --ext .png --force \
         < $tmp
     rm -f $tmp
-end
-
-function manga
-    $HOME/usr/py/.venv/bin/python -m mangadex_downloader \
-        -f cbz \
-        --filename-chapter "{chapter.manga_title} Vol.{chapter.volume} Ch.{chapter.chapter}{file_ext}" \
-        $argv[1]
 end
 
 # work
