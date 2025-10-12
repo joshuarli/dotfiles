@@ -20,5 +20,6 @@
     "statusformatl": "$(modified)$(filename) ($(line),$(col))",
     "statusformatr": "",
     "tabmovement": true,
-    "tabstospaces": true
+    "tabstospaces": true,
+    "tabsize": 2
 }

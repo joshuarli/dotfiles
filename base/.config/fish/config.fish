@@ -25,7 +25,7 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 set -gx CARGO_NET_GIT_FETCH_WITH_CLI true
 
 abbr --add c clear
-abbr --add e $EDITOR
+abbr --add e GOGC=off $EDITOR
 
 abbr --add l /bin/ls
 abbr --add ll /bin/ls -plAhG
@@ -105,14 +105,14 @@ function mdl
     end
 
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config \
-        -f 'ba[ext=m4a]' \
+        -f 'ba' \
         --add-metadata \
         -o "%(title)s [%(id)s].%(ext)s" $argv
 end
 
 function mpdl
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config --ignore-errors \
-        -f 'ba[ext=m4a]' \
+        -f 'ba' \
         --add-metadata \
         -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
 end
