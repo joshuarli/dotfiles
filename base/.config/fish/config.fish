@@ -1,6 +1,6 @@
 set -g fish_autosuggestion_enabled 0
 set fish_greeting
-fish_config theme choose none
+fish_config theme choose None
 
 fish_add_path $HOME/usr/bin /opt/homebrew/bin
 
@@ -24,7 +24,6 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 
 set -gx CARGO_NET_GIT_FETCH_WITH_CLI true
 
-abbr --add c clear
 abbr --add e GOGC=off $EDITOR
 
 abbr --add l /bin/ls
@@ -37,6 +36,9 @@ abbr --add fd  fd --prune
 abbr --add fdh fd --prune --no-ignore-vcs -H -E '.git/'
 abbr --add rg  rg -S
 abbr --add rgh rg --hidden -S -g '!.git'
+abbr --add du  duf
+
+abbr --add syncthing syncthing serve --no-port-probing --no-browser --no-upgrade --gui-address='http://127.0.0.1:6969'
 
 # apple's /usr/bin/git is way smaller and faster than homebrew's
 abbr --add gaa /usr/bin/git add --all
@@ -105,6 +107,7 @@ function mdl
     end
 
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config \
+        --remote-components 'ejs:github' \
         -f 'ba' \
         --add-metadata \
         -o "%(title)s [%(id)s].%(ext)s" $argv
@@ -112,6 +115,7 @@ end
 
 function mpdl
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config --ignore-errors \
+        --remote-components 'ejs:github' \
         -f 'ba' \
         --add-metadata \
         -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
@@ -119,6 +123,7 @@ end
 
 function vdl
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config --ignore-errors \
+        --remote-components 'ejs:github' \
         -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' \
         --write-sub --sub-lang=en --sub-format=srt --convert-subs=srt \
         --add-metadata \
@@ -182,3 +187,8 @@ end
 # work
 fish_add_path $HOME/.local/share/sentry-devenv/bin
 eval "$(direnv hook fish)"
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/josh/.lmstudio/bin
+# End of LM Studio CLI section
+
