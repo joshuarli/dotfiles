@@ -39,6 +39,7 @@ abbr --add rgh rg --hidden -S -g '!.git'
 abbr --add du  duf
 
 abbr --add syncthing syncthing serve --no-port-probing --no-browser --no-upgrade --gui-address='http://127.0.0.1:6969'
+abbr --add wol "$HOME/usr/bin/wol" '7c:83:34:bd:05:c4'
 
 # apple's /usr/bin/git is way smaller and faster than homebrew's
 abbr --add gaa /usr/bin/git add --all
@@ -187,8 +188,3 @@ end
 # work
 fish_add_path $HOME/.local/share/sentry-devenv/bin
 eval "$(direnv hook fish)"
-
-# Added by LM Studio CLI (lms)
-set -gx PATH $PATH /Users/josh/.lmstudio/bin
-# End of LM Studio CLI section
-
