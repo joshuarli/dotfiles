@@ -1,7 +1,6 @@
 [user]
     name = Joshua Li
     email = joshuarli98@gmail.com
-    signingkey = 846B322709634596!
 
 [url "git@github.com:"]
     insteadOf = https://github.com/

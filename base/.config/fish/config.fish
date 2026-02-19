@@ -2,7 +2,7 @@ set -g fish_autosuggestion_enabled 0
 set fish_greeting
 fish_config theme choose None
 
-fish_add_path $HOME/usr/bin /opt/homebrew/bin
+fish_add_path $HOME/usr/bin $HOME/.local/bin /opt/homebrew/bin
 
 set -gx EDITOR $HOME/usr/bin/micro
 set -gx PAGER less
@@ -40,6 +40,8 @@ abbr --add du  duf
 
 abbr --add syncthing syncthing serve --no-port-probing --no-browser --no-upgrade --gui-address='http://127.0.0.1:6969'
 abbr --add wol "$HOME/usr/bin/wol" '7c:83:34:bd:05:c4'
+abbr --add tu '/Applications/Tailscale.app/Contents/MacOS/Tailscale' up
+abbr --add td '/Applications/Tailscale.app/Contents/MacOS/Tailscale' down
 
 # apple's /usr/bin/git is way smaller and faster than homebrew's
 abbr --add gaa /usr/bin/git add --all
