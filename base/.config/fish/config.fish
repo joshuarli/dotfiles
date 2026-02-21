@@ -1,9 +1,9 @@
+set -g fish_native_prompt 1
+
 set -g fish_autosuggestion_enabled 0
 set fish_greeting
-fish_config theme choose None
 
-fish_add_path $HOME/usr/bin $HOME/.local/bin /opt/homebrew/bin
-
+set -gx PATH $HOME/usr/bin $HOME/.local/bin /opt/homebrew/bin $PATH
 set -gx EDITOR $HOME/usr/bin/micro
 set -gx PAGER less
 set -gx LESS FSXR
@@ -71,18 +71,6 @@ function multicd
     echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
 end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
-
-function fish_prompt
-    printf '%s@%s %s%s%s %s $ ' \
-        $USER \
-        $hostname \
-        (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) \
-        "$(/usr/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null)"
-end
-
-function fish_right_prompt
-    fish_status_to_signal $status
-end
 
 function sw
     mkdir /tmp/xdg
@@ -188,5 +176,5 @@ function optimize-png
 end
 
 # work
-fish_add_path $HOME/.local/share/sentry-devenv/bin
+set -gx PATH $HOME/.local/share/sentry-devenv/bin $PATH
 eval "$(direnv hook fish)"
