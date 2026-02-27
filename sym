@@ -52,15 +52,15 @@ parser.add_argument(
     "-d", "--delete", action="store_true", help="remove symlinks instead of create"
 )
 parser.add_argument(
-    "--dry-run",
+    "-s",
+    "--skip-existing",
     action="store_true",
-    help="implies -v, but does not perform any actual operations.",
+    help="skip files/symlinks that already exist instead of treating them as conflicts",
 )
 parser.add_argument(
-    "-v",
-    "--verbose",
+    "--dry-run",
     action="store_true",
-    help="print symlinks as they are created or removed",
+    help="does not perform any actual operations.",
 )
 args = parser.parse_args()
 
@@ -76,9 +76,10 @@ if not path.isdir(args.target):
     sys.exit(f"target directory {args.target} is not a directory or does not exist")
 target_dir = args.target
 
-verbose = args.verbose or args.dry_run
+verbose = True
 dry_run = args.dry_run
 delete_mode = args.delete
+skip_existing = args.skip_existing
 ignore_patterns = tuple(args.ignore_patterns or ())
 
 # pass #1: collect symlink jobs from all sources and detect conflicts
@@ -115,6 +116,10 @@ for source_dir in source_dirs:
             if exists:
                 # ...but is a symlink to the valid file we are trying to symlink, ignore it.
                 if islink and (realpath == dest_abspath):
+                    continue
+                if skip_existing:
+                    if not islink:
+                        print(f"WARNING: {name} already exists and is not a symlink, skipping.", file=sys.stderr)
                     continue
                 # otherwise, conflict.
                 conflicts.append(
