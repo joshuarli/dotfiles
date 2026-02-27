@@ -3,7 +3,7 @@ set -g fish_native_prompt 1
 set -g fish_autosuggestion_enabled 0
 set fish_greeting
 
-set -gx PATH $HOME/usr/bin $HOME/.local/bin /opt/homebrew/bin $PATH
+set -gx PATH $HOME/usr/bin $HOME/.local/bin $HOME/.cache/.bun/bin /opt/homebrew/bin $PATH
 set -gx EDITOR $HOME/usr/bin/micro
 set -gx PAGER less
 set -gx LESS FSXR
@@ -24,7 +24,10 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 
 set -gx CARGO_NET_GIT_FETCH_WITH_CLI true
 
-abbr --add e GOGC=off $EDITOR
+abbr --add f $HOME/dev/fish-shell/target/release/fish
+
+# abbr --add e GOGC=off $EDITOR
+abbr --add e $HOME/dev/e/target/debug/e
 
 abbr --add l /bin/ls
 abbr --add ll /bin/ls -plAhG
