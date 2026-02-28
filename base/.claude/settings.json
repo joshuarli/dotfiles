@@ -1,5 +1,5 @@
 {
-  "model": "opus",
+  "model": "claude-sonnet-4-6",
   "hooks": {
     "Notification": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title 'claude needs input!' -execute \"open -a Alacritty; /opt/homebrew/bin/tmux select-window -t $TMUX_PANE; /opt/homebrew/bin/tmux select-pane -t $TMUX_PANE\" < /dev/null"
+            "command": "terminal-notifier -title 'claude needs input!' -execute \"open -a tty.app; /opt/homebrew/bin/tmux select-window -t $TMUX_PANE; /opt/homebrew/bin/tmux select-pane -t $TMUX_PANE\" < /dev/null"
           }
         ]
       }

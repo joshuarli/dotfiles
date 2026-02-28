@@ -9,33 +9,11 @@
     insteadOf = https://gitlab.com/
 
 [core]
-    autocrlf = input
-    pager = delta
-
-[merge]
-    conflictstyle = diff3
-
-[diff]
-    colorMoved = default
-
-[delta]
-    features = line-numbers decorations
-    syntax-theme = none
-    # Too many colors is distracting.
-    # syntax-theme = Dracula
-    plus-style = green
-    plus-emph-style = green bold
-    minus-style = red
-    minus-emph-style = red bold
-    line-numbers-left-format  = {nm:^4}
-    line-numbers-right-format = {np:^4}
-
-[delta "decorations"]
-    file-style = magenta bold
-    commit-decoration-style = none
-    file-decoration-style = white box
-    hunk-header-style = none
-    hunk-header-decoration-style = white ul
+    ignorecase = true
+    # cache untracked dir mtimes to avoid rescanning unchanged dirs
+    untrackedCache = true
+    # use built-in filesystem watcher so git knows what changed without full scan
+    fsmonitor = true
 
 [alias]
     amend = commit --amend -v
@@ -44,8 +22,14 @@
     d = diff
     dc = diff --cached
     s = show
-    l = log --pretty='format:%h %cs (%an)%d %s'
+    l = log -s
     unstage = reset --
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
 
 [push]
     default = current
@@ -61,4 +45,26 @@
     autoStash = true
 
 [safe]
-	directory = *
+    directory = *
+
+[delta]
+    features = line-numbers decorations
+    syntax-theme = none
+    plus-style = green
+    plus-emph-style = green bold
+    minus-style = red
+    minus-emph-style = red bold
+    line-numbers-left-format  = {nm:^4}
+    line-numbers-right-format = {np:^4}
+    navigate = true  # use n and N to move between diff sections
+
+[delta "decorations"]
+    file-style = magenta bold
+    commit-decoration-style = none
+    file-decoration-style = white box
+    hunk-header-style = none
+    hunk-header-decoration-style = white ul
+
+[merge]
+    conflictStyle = zdiff3
+

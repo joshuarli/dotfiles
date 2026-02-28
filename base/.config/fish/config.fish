@@ -41,6 +41,8 @@ abbr --add rg  rg -S
 abbr --add rgh rg --hidden -S -g '!.git'
 abbr --add du  duf
 
+abbr --add p   procs
+
 abbr --add syncthing syncthing serve --no-port-probing --no-browser --no-upgrade --gui-address='http://127.0.0.1:6969'
 abbr --add wol "$HOME/usr/bin/wol" '7c:83:34:bd:05:c4'
 abbr --add tu '/Applications/Tailscale.app/Contents/MacOS/Tailscale' up
@@ -49,13 +51,14 @@ abbr --add td '/Applications/Tailscale.app/Contents/MacOS/Tailscale' down
 # apple's /usr/bin/git is way smaller and faster than homebrew's
 abbr --add gaa /usr/bin/git add --all
 abbr --add gcm /usr/bin/git commit -m
-abbr --add gd  /usr/bin/git diff
-abbr --add gdc /usr/bin/git diff --cached
-abbr --add gl  /usr/bin/git log
+abbr --add gd  /usr/bin/git d
+abbr --add gdd /usr/bin/git diff --name-only --diff-filter=U
+abbr --add gdc /usr/bin/git dc
+abbr --add gl  /usr/bin/git l
 abbr --add gp  /usr/bin/git push -u
 abbr --add grv /usr/bin/git remote -v
-abbr --add gs  /usr/bin/git status -sb -uall
-abbr --add gss /usr/bin/git diff --name-only --diff-filter=U
+abbr --add gs  /usr/bin/git status -sb
+abbr --add gss /usr/bin/git status -sb -uall
 
 function gr
     [ -n $argv[1] ] && /usr/bin/git reset HEAD~$argv[1] || /usr/bin/git reset
