@@ -10,10 +10,22 @@
 
 [core]
     ignorecase = true
+    pager = delta
+
+    # commit-graph for fast traversal
+    commitGraph = true
+
     # cache untracked dir mtimes to avoid rescanning unchanged dirs
     untrackedCache = true
+
     # use built-in filesystem watcher so git knows what changed without full scan
     fsmonitor = true
+
+    # parallel index stat() calls
+    preloadIndex = true
+
+    # multi-pack-index for faster object lookup across packs
+    multiPackIndex = true
 
 [alias]
     amend = commit --amend -v
@@ -22,18 +34,14 @@
     d = diff
     dc = diff --cached
     s = show
-    l = log -s
+    l = log --oneline
     unstage = reset --
-
-[core]
-    pager = delta
 
 [interactive]
     diffFilter = delta --color-only
 
 [push]
     default = current
-    followTags = false
 
 [branch]
     autoSetupMerge = always
@@ -44,8 +52,17 @@
 [rebase]
     autoStash = true
 
-[safe]
-    directory = *
+[diff]
+    algorithm = histogram
+
+[merge]
+    conflictStyle = zdiff3
+
+[rerere]
+    enabled = true
+
+[transfer]
+    fsckObjects = true
 
 [delta]
     features = line-numbers decorations
@@ -65,6 +82,31 @@
     hunk-header-style = none
     hunk-header-decoration-style = white ul
 
-[merge]
-    conflictStyle = zdiff3
+[gc]
+    writeCommitGraph = true
 
+[fetch]
+    writeCommitGraph = true
+    parallel = 0
+
+[commitGraph]
+    readChangedPaths = true
+
+[feature]
+    manyFiles = true
+
+[index]
+    version = 4
+
+[pack]
+    threads = 0
+    writeBitmapHashCache = true
+
+[repack]
+    writeBitmaps = true
+
+[checkout]
+    workers = 0
+
+[protocol]
+    version = 2

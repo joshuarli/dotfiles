@@ -48,20 +48,19 @@ abbr --add wol "$HOME/usr/bin/wol" '7c:83:34:bd:05:c4'
 abbr --add tu '/Applications/Tailscale.app/Contents/MacOS/Tailscale' up
 abbr --add td '/Applications/Tailscale.app/Contents/MacOS/Tailscale' down
 
-# apple's /usr/bin/git is way smaller and faster than homebrew's
-abbr --add gaa /usr/bin/git add --all
-abbr --add gcm /usr/bin/git commit -m
-abbr --add gd  /usr/bin/git d
-abbr --add gdd /usr/bin/git diff --name-only --diff-filter=U
-abbr --add gdc /usr/bin/git dc
-abbr --add gl  /usr/bin/git l
-abbr --add gp  /usr/bin/git push -u
-abbr --add grv /usr/bin/git remote -v
-abbr --add gs  /usr/bin/git status -sb
-abbr --add gss /usr/bin/git status -sb -uall
+abbr --add gaa /opt/homebrew/bin/git add --all
+abbr --add gcm /opt/homebrew/bin/git commit -m
+abbr --add gd  /opt/homebrew/bin/git d
+abbr --add gdd /opt/homebrew/bin/git diff --name-only --diff-filter=U
+abbr --add gdc /opt/homebrew/bin/git dc
+abbr --add gl  /opt/homebrew/bin/git l
+abbr --add gp  /opt/homebrew/bin/git push -u
+abbr --add grv /opt/homebrew/bin/git remote -v
+abbr --add gs  /opt/homebrew/bin/git status -sb
+abbr --add gss /opt/homebrew/bin/git status -sb -uall
 
 function gr
-    [ -n $argv[1] ] && /usr/bin/git reset HEAD~$argv[1] || /usr/bin/git reset
+    [ -n $argv[1] ] && /opt/homebrew/bin/git reset HEAD~$argv[1] || /opt/homebrew/bin/git reset
 end
 
 function gitroot

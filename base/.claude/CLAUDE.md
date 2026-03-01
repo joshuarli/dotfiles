@@ -4,7 +4,7 @@ Always use these tools instead of their POSIX/legacy equivalents. No exceptions.
 
 **Exception: for code exploration and navigation, roam supersedes rg/fd — see "Exploring Codebases" below.**
 
-For detailed flags, patterns, and examples see `~/dev/tools/TOOLS.md`
+For detailed flags, patterns, and examples see `~/usr/share/claude/TOOLS.md`
 
 ## Substitution Rules
 
