@@ -181,5 +181,6 @@ function optimize-png
 end
 
 # work
-set -gx PATH $HOME/.local/share/sentry-devenv/bin $PATH
-eval "$(direnv hook fish)"
+# set -gx PATH $HOME/.local/share/sentry-devenv/bin $PATH
+# eval "$(direnv hook fish)"
+denv hook fish | source
