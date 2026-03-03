@@ -1,40 +1,10 @@
-# CLI Tools for Coding Agents
+# CLI Tools Reference
 
-Always use these tools instead of their POSIX/legacy equivalents. No exceptions.
-
-## Substitution Rules
-
-| Instead of | Use |
-|---|---|
-| `grep`, `grep -r` | `rg` |
-| `find` | `fd` |
-| `ls`, `tree` | `eza` |
-| `sed` | `sd` |
-| `jq` | `jaq` |
-| `curl`, `httpie` | `xh` |
-| `ps`, `ps aux \| grep` | `procs` |
-| `du`, `du -sh` | `dua` (read-only only — never `dua i`) |
-
-When an agent has built-in search/glob tools, prefer those for basic queries.
-Use CLI `rg`/`fd` when piping, using `--json`, or needing advanced flags.
-
-## Global Conventions
-
-Apply these defaults whenever invoking any tool.
-
-| Convention | How |
-|---|---|
-| Disable color | `--color=never` or `NO_COLOR=1` |
-| Structured output | `--json`, `-o json` |
-| `--` before positional args | `rg -- '-TODO'` |
-| Quote patterns | `rg 'fn\s+main'` |
-| Language/type filters | `rg -t py`, `fd -e rs` |
+Detailed flags, patterns, and examples. See `CLAUDE.md` for substitution rules, defaults, and gotchas.
 
 ---
 
 ## rg — content search
-
-Defaults: `rg --color=never --no-heading --line-number`
 
 | Flag | Purpose |
 |---|---|
@@ -56,8 +26,6 @@ rg 'class User' -g '!tests/**' -g '*.py'
 ---
 
 ## fd — find files
-
-Defaults: `fd --color=never`
 
 | Flag | Purpose |
 |---|---|
@@ -81,16 +49,12 @@ fd --changed-within 1h
 
 ## eza — list files & tree view
 
-Defaults: `eza --no-user --no-time --no-permissions --color=never`
-
 ```bash
 eza --tree --level=3 --git-ignore              # project structure
 eza --tree --level=2 --git-ignore -l --no-user --no-time --no-permissions  # with sizes
 eza --tree --git-ignore -I '*.pyc|__pycache__' # custom exclusions
 eza -l --sort=modified --reverse               # by modification time
 ```
-
-`--git-ignore` is the key flag — respects `.gitignore` unlike `tree`.
 
 ---
 
@@ -110,13 +74,11 @@ fd -e ts -X sd 'OldComponent' 'NewComponent' # bulk rename across codebase
 sd -p 'foo' 'bar' config.yaml               # preview first
 ```
 
-**Gotchas:** Capture groups are `$1`, `${name}` — NOT `\1`. Escape literal `$` with `$$`. No `-i` flag — in-place IS the default.
-
 ---
 
 ## jaq — JSON processing
 
-Defaults: `jaq -r` (raw output, no quotes). Nearly identical to `jq` — most filters work unchanged.
+Nearly identical to `jq` — most filters work unchanged.
 
 ```bash
 jaq '.[] | select(.status == "active")' users.json
@@ -127,15 +89,11 @@ jaq --fmt yaml '.' config.yaml              # YAML input
 if jaq -e '.enabled' config.json; then ...  # exit code on truthiness
 ```
 
-**Gotchas:** Not 100% jq-compatible — edge cases around `limit`, `first`, `last`, `@format`.
-
 ---
 
 ## yq — YAML processing
 
-Defaults: `yq --no-colors`. This is [mikefarah/yq](https://github.com/mikefarah/yq) (Go) — NOT `kislyuk/yq` (Python). Verify with `yq --version`.
-
-Preserves comments and formatting on in-place (`-i`) edits.
+This is [mikefarah/yq](https://github.com/mikefarah/yq) (Go). Preserves comments and formatting on in-place (`-i`) edits.
 
 ```bash
 yq '.metadata.name' deployment.yaml
@@ -156,7 +114,7 @@ MY_TAG=v1.2.3 yq -i '.image.tag = strenv(MY_TAG)' values.yaml
 
 AST-based. Use over `rg` when you need structural precision — skips comments/strings, ignores formatting.
 
-Defaults: `sg --color=never --lang LANG` — language (`-l`) is **required**, no auto-detection.
+Language (`-l`) is **required**, no auto-detection. Binary may be `ast-grep` or `sg` depending on install.
 
 | Metavariable | Matches |
 |---|---|
@@ -175,13 +133,11 @@ sg -p '$A && $A()' -r '$A?.()' -l ts -i
 sg -p 'print($$$ARGS)' -r 'logger.info($$$ARGS)' -l py -i
 ```
 
-**Gotchas:** Binary may be `ast-grep` or `sg` depending on install. For complex refactors, use YAML rule files with `sg scan`.
+For complex refactors, use YAML rule files with `sg scan`.
 
 ---
 
 ## xh — HTTP requests
-
-Defaults: `xh --style=plain`
 
 Value syntax: `key=string`, `key:=raw_json`, `key==query_param`, `key:header`. Method inferred: body → POST, no body → GET.
 
@@ -201,7 +157,7 @@ xh -d api.example.com/file -o output.bin     # download
 
 ## watchexec — watch & re-run
 
-Respects `.gitignore` automatically.
+Respects `.gitignore` automatically. Changed paths available via `$WATCHEXEC_COMMON_PATH`, `$WATCHEXEC_WRITTEN_PATH`.
 
 ```bash
 watchexec -e rs,toml -- cargo build
@@ -210,8 +166,6 @@ watchexec -w src/ -e rs -- cargo test        # watch specific dir
 watchexec --debounce 300 -e go -- go test ./...
 watchexec -i '*.log' -i 'tmp/**' -e rb -- bundle exec rspec
 ```
-
-**Gotchas:** `-r` (restart) is essential for servers — without it, processes stack. Changed paths available via `$WATCHEXEC_COMMON_PATH`, `$WATCHEXEC_WRITTEN_PATH`.
 
 ---
 
@@ -249,16 +203,11 @@ git add -p                                   # stage hunks interactively
 git stash push -m "wip: auth refactor"       # named stash
 ```
 
-**Gotchas:**
-- `main...HEAD` (three dots) = since fork point. `main..HEAD` (two dots) includes main's changes — usually wrong.
-- `git log -S` searches diffs, not file content. More precise than `rg` for historical questions.
-- Recommended config: `merge.conflictstyle=zdiff3`, `branch.sort=-committerdate`, `rebase.autoStash=true`.
+Recommended config: `merge.conflictstyle=zdiff3`, `branch.sort=-committerdate`, `rebase.autoStash=true`.
 
 ---
 
 ## procs — process inspection
-
-Defaults: `procs --color=never`
 
 ```bash
 procs node                                   # keyword search (cmd, args, user, PID)
@@ -271,14 +220,12 @@ procs --sortd mem                            # sort by memory desc
 
 ## dua — disk usage
 
-**⚠️ Never use `dua i` — interactive mode can delete files. Read-only only.**
+Parallel scanning, sorted by size (largest first).
 
 ```bash
 dua                                          # scan current directory
 dua src/ node_modules/ target/               # scan specific paths
 ```
-
-Parallel scanning, sorted by size (largest first).
 
 ---
 
