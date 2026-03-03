@@ -13,49 +13,9 @@ Test behavior at boundaries, not implementation details.
 - **Parallelizable by default**: No global state, no fixed ports, no shared temp dirs without unique names. Design every test to run concurrently.
 - **Test the contract**: Assert on outputs and observable side effects, not on which internal methods were called. Mock only at system boundaries (network, filesystem, clock).
 
-## Shell
+## Language Rules
 
-Write POSIX sh from the start. Shebang is `#!/bin/sh` — no bashisms.
-
-- **Builtins first**: Prefer shell builtins over external commands.
-- **Minimize subprocesses**: Especially heavy ones like `python`, `ruby`, `perl`. Avoid useless `cat`, `echo | pipe`, and other anti-patterns.
-- **POSIX utilities only**: No GNU-isms or non-portable flags.
-- **Verify**: Must pass `shellcheck --norc -s sh`.
-
-## Python
-
-Write plain, direct Python. Functions over classes unless state is genuinely needed.
-
-- **Standard library first**: Don't reach for a dependency when `os`, `pathlib`, `itertools`, or `collections` already suffices.
-- **Type hints**: Annotate function signatures. Use built-in generics (`list[str]`, `dict[str, int]`) over `typing` imports.
-- **No class ceremony**: A module with functions is fine. Use a class only for encapsulated mutable state or a protocol.
-- **Comprehensions over map/filter**: Avoid `lambda` outside of trivial `key=` arguments.
-- **Explicit errors**: No bare `except:`. Catch specific exceptions. Let unexpected errors propagate.
-
-## TypeScript
-
-Target Node 24+. ESM only — no CommonJS, no `require()`.
-
-- **`node:` prefix**: Always use `node:fs`, `node:path`, etc. No bare built-in imports.
-- **Standard library first**: Use `node:` builtins before npm packages. `fetch` is global — no `node-fetch`.
-- **Functions over classes**: Plain functions and objects. Classes only for genuine stateful abstractions.
-- **No `any`, no `as` casts**: Use `unknown` and narrow with type guards. Treat `as` like Rust's `unsafe` — a last resort, not a convenience.
-- **Discriminated unions**: Use a literal `type`/`kind` field to narrow, not `instanceof` chains.
-- **`readonly` by default**: Prefer `Readonly<T>`, `readonly` arrays, and immutable data. Mutate only when there's a clear reason.
-- **No enums**: Use `as const` objects or union types instead.
-
-## Rust
-
-Write lean, idiomatic Rust. Prefer the simplest solution that works.
-
-- **Ownership**: Accept borrows (`&str`, `&[T]`, `&Path`) unless you need ownership. Avoid gratuitous `.clone()`.
-- **Iterators over loops**: Prefer iterator chains over manual `for`/`while` with mutable accumulators.
-- **Enums over trait objects**: Use enums for closed sets of variants. Reserve `dyn Trait` for genuine runtime polymorphism.
-- **No premature abstraction**: A concrete function beats a generic one unless genericity is exercised by multiple callers today.
-- **Error handling**: Use `anyhow` in binaries, typed errors in libraries. No `.unwrap()` on fallible paths — `?` or `expect("reason")`.
-- **Minimize allocations**: Reuse buffers, prefer `&str`/`Cow` over `String`, stack arrays or `SmallVec` over `Vec` for small fixed-size collections.
-- **Lifetimes**: Don't annotate when elision works. If a signature needs 3+ lifetime params, rethink the design.
-- **Unsafe**: Only with a `// SAFETY:` comment explaining the invariant. Prefer safe abstractions from well-known crates.
+See `~/.claude/lang/{shell,python,typescript,rust}.md`
 
 # CLI Tool Mandate
 
