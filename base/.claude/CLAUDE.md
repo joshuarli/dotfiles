@@ -53,3 +53,14 @@ These will silently bite you if you forget them:
 - **watchexec**: `-r` (restart) is essential for servers — without it, processes stack on every change.
 - **eza**: `--git-ignore` is the key flag — respects `.gitignore` unlike `tree`.
 
+# Coding Style
+
+## Shell Scripts
+
+First implement in bash, then do a conversion pass to pure POSIX sh and change the shebang to `/bin/dash`.
+
+Minimize use of subprocesses. Heavy ones like `python` are not allowed. Avoid silly things like useless `cat`.
+Try to use as many shell builtins as you can.
+
+Verify with `shellcheck --norc -s sh`.
+

@@ -4,9 +4,8 @@ set -g fish_autosuggestion_enabled 0
 set fish_greeting
 
 set -gx PATH $HOME/dev/tools/bin $HOME/usr/bin $HOME/.local/bin $HOME/.cache/.bun/bin /opt/homebrew/bin $PATH
-set -gx EDITOR $HOME/usr/bin/micro
-set -gx PAGER less
-set -gx LESS FSXR
+set -gx EDITOR /usr/local/bin/e
+set -gx PAGER /Users/josh/dev/lz/target/debug/lz
 
 # su=00:sg=00:ca=00 don't colorize setuid/gid or filecaps to avoid expensive syscalls
 # or=40;31;01 broken symlinks are red
@@ -15,7 +14,6 @@ set -gx LS_COLORS 'su=00:sg=00:ca=00:or=40;31;01:'
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
-set -gx LESSHISTFILE "$XDG_DATA_HOME/less_history"
 
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
 set -gx HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK 1
@@ -24,10 +22,9 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 
 set -gx CARGO_NET_GIT_FETCH_WITH_CLI true
 
-abbr --add f $HOME/dev/fish-shell/target/release/fish
+abbr --add c $HOME/dev/sbox/sbox -- claude --dangerously-skip-permissions
 
-# abbr --add e GOGC=off $EDITOR
-abbr --add e $HOME/dev/e/target/debug/e
+abbr --add e /usr/local/bin/e
 
 abbr --add l /bin/ls
 abbr --add ll /bin/ls -plAhG
@@ -181,6 +178,7 @@ function optimize-png
 end
 
 # work
-# set -gx PATH $HOME/.local/share/sentry-devenv/bin $PATH
+set -gx PATH $HOME/.local/share/sentry-devenv/bin $PATH
 # eval "$(direnv hook fish)"
 denv hook fish | source
+
