@@ -34,7 +34,7 @@
     d = diff
     dc = diff --cached
     s = show
-    l = log --oneline
+    l = log
     unstage = reset --
 
 [interactive]

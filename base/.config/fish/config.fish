@@ -29,7 +29,9 @@ abbr --add e /usr/local/bin/e
 abbr --add l /bin/ls
 abbr --add ll /bin/ls -plAhG
 
-abbr --add mpv /Applications/mpv.app/Contents/MacOS/mpv
+abbr --add p   /usr/local/bin/play
+abbr --add pd  $HOME/dev/play/target/debug/play
+abbr --add mpv /Applications/mpv.app/Contents/MacOS/
 abbr --add mp  /Applications/mpv.app/Contents/MacOS/mpv -vo null
 
 abbr --add fd  fd --prune
@@ -38,7 +40,7 @@ abbr --add rg  rg -S
 abbr --add rgh rg --hidden -S -g '!.git'
 abbr --add du  duf
 
-abbr --add p   procs
+# abbr --add p   procs
 
 abbr --add syncthing syncthing serve --no-port-probing --no-browser --no-upgrade --gui-address='http://127.0.0.1:6969'
 abbr --add wol "$HOME/usr/bin/wol" '7c:83:34:bd:05:c4'
@@ -100,7 +102,8 @@ function mdl
     end
 
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config \
-        --remote-components 'ejs:github' \
+        --remote-components 'ejs:npm' \
+        --js-runtimes bun:/opt/homebrew/bin/bun \
         -f 'ba' \
         --add-metadata \
         -o "%(title)s [%(id)s].%(ext)s" $argv
@@ -108,7 +111,8 @@ end
 
 function mpdl
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config --ignore-errors \
-        --remote-components 'ejs:github' \
+        --remote-components 'ejs:npm' \
+        --js-runtimes bun:/opt/homebrew/bin/bun \
         -f 'ba' \
         --add-metadata \
         -o "%(playlist_title)s/%(playlist_index)02d - %(title)s [%(id)s].%(ext)s" $argv[1]
@@ -116,7 +120,8 @@ end
 
 function vdl
     $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config --ignore-errors \
-        --remote-components 'ejs:github' \
+        --remote-components 'ejs:npm' \
+        --js-runtimes bun:/opt/homebrew/bin/bun \
         -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' \
         --write-sub --sub-lang=en --sub-format=srt --convert-subs=srt \
         --add-metadata \

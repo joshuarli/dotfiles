@@ -1,0 +1,32 @@
+icons = "none"
+theme = "plain"
+
+separator = "  "
+
+[[block]]
+block = "memory"
+format = "mem: $used ($percentage_used)"
+interval = 10
+
+[[block]]
+block = "cpu"
+format = "cpu: $utilization"
+interval = 10
+
+[[block]]
+block = "time"
+format = "%Y-%m-%d %H:%M"
+interval = 60
+
+[[block]]
+block = "battery"
+device = "BAT0"
+interval = 60
+format_charging = "+ $percentage"
+format_full = "+ $percentage"
+format_discharging = "- $percentage"
+format_not_charging = "- $percentage"
+
+[[block.thresholds]]
+value = 20
+color = "#ff0000"
