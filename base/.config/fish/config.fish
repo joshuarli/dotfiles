@@ -5,7 +5,7 @@ set fish_greeting
 
 set -gx PATH $HOME/dev/tools/bin $HOME/usr/bin $HOME/.local/bin $HOME/.cache/.bun/bin /opt/homebrew/bin $PATH
 set -gx EDITOR /usr/local/bin/e
-set -gx PAGER /Users/josh/dev/lz/target/debug/lz
+set -gx PAGER /usr/local/bin/lz
 
 # su=00:sg=00:ca=00 don't colorize setuid/gid or filecaps to avoid expensive syscalls
 # or=40;31;01 broken symlinks are red
@@ -21,8 +21,6 @@ set -gx HOMEBREW_NO_INSTALL_CLEANUP 1
 set -gx HOMEBREW_NO_ANALYTICS 1
 
 set -gx CARGO_NET_GIT_FETCH_WITH_CLI true
-
-abbr --add c $HOME/dev/sbox/sbox -- claude --dangerously-skip-permissions
 
 abbr --add e /usr/local/bin/e
 
