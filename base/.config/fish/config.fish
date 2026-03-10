@@ -3,7 +3,7 @@ set -g fish_native_prompt 1
 set -g fish_autosuggestion_enabled 0
 set fish_greeting
 
-set -gx PATH $HOME/dev/tools/bin $HOME/usr/bin $HOME/.local/bin $HOME/.cache/.bun/bin /opt/homebrew/bin $PATH
+set -gx PATH $HOME/dev/tools/bin $HOME/usr/bin $HOME/.local/bin $HOME/.cache/.bun/bin $HOME/go/bin /opt/homebrew/bin $PATH
 set -gx EDITOR /usr/local/bin/e
 set -gx PAGER /usr/local/bin/lz
 

@@ -15,7 +15,7 @@ Test behavior at boundaries, not implementation details.
 
 ## Language Rules
 
-See `~/.claude/lang/{shell,python,typescript,rust}.md`
+See `~/.claude/lang/{shell,python,typescript,rust,golang,css,html}.md`
 
 # CLI Tool Mandate
 
