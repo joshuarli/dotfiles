@@ -3,9 +3,9 @@ set -g fish_native_prompt 1
 set -g fish_autosuggestion_enabled 0
 set fish_greeting
 
-set -gx PATH $HOME/dev/tools/bin $HOME/usr/bin $HOME/.local/bin $HOME/.cache/.bun/bin $HOME/go/bin /opt/homebrew/bin $PATH
-set -gx EDITOR /usr/local/bin/e
-set -gx PAGER /usr/local/bin/lz
+set -gx PATH $HOME/usr/bin $HOME/dev/tools/bin $HOME/.local/bin $HOME/.cache/.bun/bin $HOME/go/bin /opt/homebrew/bin $PATH
+set -gx EDITOR $HOME/usr/bin/e
+set -gx PAGER $HOME/usr/bin/lz
 
 # su=00:sg=00:ca=00 don't colorize setuid/gid or filecaps to avoid expensive syscalls
 # or=40;31;01 broken symlinks are red
@@ -22,15 +22,12 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 
 set -gx CARGO_NET_GIT_FETCH_WITH_CLI true
 
-abbr --add e /usr/local/bin/e
+abbr --add e $EDITOR
 
 abbr --add l /bin/ls
 abbr --add ll /bin/ls -plAhG
 
-abbr --add p   /usr/local/bin/play
-abbr --add pd  $HOME/dev/play/target/debug/play
-abbr --add mpv /Applications/mpv.app/Contents/MacOS/
-abbr --add mp  /Applications/mpv.app/Contents/MacOS/mpv -vo null
+abbr --add p   $HOME/usr/bin/play
 
 abbr --add fd  fd --prune
 abbr --add fdh fd --prune --no-ignore-vcs -H -E '.git/'

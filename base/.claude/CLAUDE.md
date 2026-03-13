@@ -50,8 +50,8 @@ Apply to every invocation: `--color=never` (or `NO_COLOR=1`), `--` before positi
 | `jaq` | `-r` (raw output) |
 | `yq` | `--no-colors` |
 | `sg` | `--color=never --lang LANG` (`-l` is required) |
-| `xh` | `--style=plain` |
-| `procs` | `--color=never` |
+| `xh` | `--pretty=none` |
+| `procs` | `--color=disable` |
 
 ## Gotchas
 
