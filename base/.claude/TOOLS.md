@@ -167,46 +167,6 @@ watchexec --debounce 300 -e go -- go test ./...
 watchexec -i '*.log' -i 'tmp/**' -e rb -- bundle exec rspec
 ```
 
----
-
-## git — version control patterns
-
-**Searching history:**
-
-```bash
-git log -S 'functionName' --oneline          # pickaxe: when was string added/removed
-git log -G 'def\s+process_' --oneline        # regex variant
-git log --grep='fix.*auth' --oneline -i      # search commit messages
-git log --oneline --follow -- src/file.py    # history through renames
-git blame --ignore-revs-file .git-blame-ignore-revs src/main.rs
-```
-
-**Understanding changes:**
-
-```bash
-git diff --stat                              # compact summary
-git diff main...HEAD                         # PR contents (three dots = since fork)
-git diff --name-only main...HEAD             # just filenames
-git diff --word-diff                         # word-level (prose/config)
-git diff --cached                            # staged only
-git log -3 -p --stat                         # last 3 commits with diffs
-```
-
-**Undoing and recovering:**
-
-```bash
-git reset --soft HEAD~1                      # undo commit, keep staged
-git reflog                                   # find lost commits (90 day retention)
-git checkout -b recovered abc1234            # recover from reflog
-git restore --source=main -- src/config.yaml # file from another branch
-git add -p                                   # stage hunks interactively
-git stash push -m "wip: auth refactor"       # named stash
-```
-
-Recommended config: `merge.conflictstyle=zdiff3`, `branch.sort=-committerdate`, `rebase.autoStash=true`.
-
----
-
 ## procs — process inspection
 
 ```bash

@@ -1,5 +1,5 @@
 {
-  "model": "opus",
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -20,6 +20,6 @@
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true
   },
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true
 }

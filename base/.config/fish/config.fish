@@ -35,7 +35,7 @@ abbr --add rg  rg -S
 abbr --add rgh rg --hidden -S -g '!.git'
 abbr --add du  duf
 
-# abbr --add p   procs
+abbr --add pp  procs
 
 abbr --add syncthing syncthing serve --no-port-probing --no-browser --no-upgrade --gui-address='http://127.0.0.1:6969'
 abbr --add wol "$HOME/usr/bin/wol" '7c:83:34:bd:05:c4'
@@ -70,11 +70,6 @@ function multicd
     echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
 end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
-
-function sw
-    mkdir /tmp/xdg
-    XDG_RUNTIME_DIR=/tmp/xdg sway
-end
 
 function sshnew
     ssh-keygen -t ed25519 -a 100 -f $HOME/.ssh/$argv[1] -N '' -C $argv[2]
@@ -122,59 +117,6 @@ function vdl
         --add-metadata \
         --merge-output-format mp4 \
         -o "%(title)s [%(id)s].%(ext)s" $argv
-end
-
-function msdl
-    set urls $(IFS=$'\n' $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config -f 'ba[ext=m4a]' -g $argv[1])
-    ffmpeg -ss $argv[2] -to $argv[3] -i $urls[1] -map 0:a -c:a copy $argv[4]
-end
-
-function vsdl
-    set urls $(IFS=$'\n' $HOME/usr/py/.venv/bin/python -m yt_dlp --ignore-config -g $argv[1])
-    ffmpeg -ss $argv[2] -to $argv[3] -i $urls[0] -ss $argv[2] -i $urls[1] -map 0:v -map 1:a $argv[4]
-end
-
-function optimize-jpg
-    set tmp $(mktemp)
-    fd -tf --color=never -0 \
-        -e jpg -e jpeg \
-        > $tmp
-    set count $(awk -vRS='\0' 'END{print NR}' < $tmp)
-    set nproc 8
-    set n (math 1 + (count / nproc))
-    # I think gnu parallel will not clobber output?
-    xargs -0 -t -P$nproc -n$n \
-        jpegoptim -m90 -s \
-        < $tmp
-    rm -f $tmp
-end
-
-function optimize-jpg-no-strip
-    set tmp $(mktemp)
-    fd -tf --color=never -0 \
-        -e jpg -e jpeg \
-        > $tmp
-    set count $(awk -vRS='\0' 'END{print NR}' < $tmp)
-    set nproc 8
-    set n (math 1 + (count / nproc))
-    xargs -0 -t -P$nproc -n$n \
-        jpegoptim -m90 --strip-none \
-        < $tmp
-    rm -f $tmp
-end
-
-function optimize-png
-    set tmp $(mktemp)
-    fd -tf --color=never -0 \
-        -e png \
-        > $tmp
-    set count $(awk -vRS='\0' 'END{print NR}' < $tmp)
-    set nproc 8
-    set n (math 1 + (count / nproc))
-    xargs -0 -t -P$nproc -n$n \
-        pngquant --skip-if-larger --quality=90 --strip --speed 1 --ext .png --force \
-        < $tmp
-    rm -f $tmp
 end
 
 # work
