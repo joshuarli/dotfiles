@@ -1,0 +1,52 @@
+set PATH "$HOME/usr/bin:$HOME/dev/tools/bin:$HOME/.local/bin"$HOME/.cache/.bun/bin"$HOME/go/bin:/opt/homebrew/bin:$PATH"
+set EDITOR $HOME/usr/bin/e
+set PAGER $HOME/usr/bin/lz
+
+# su=00:sg=00:ca=00 don't colorize setuid/gid or filecaps to avoid expensive syscalls
+# or=40;31;01 broken symlinks are red
+set LS_COLORS 'su=00:sg=00:ca=00:or=40;31;01:'
+
+set XDG_CONFIG_HOME "$HOME/.config"
+set XDG_CACHE_HOME "$HOME/.cache"
+set XDG_DATA_HOME "$HOME/.local/share"
+
+set HOMEBREW_NO_AUTO_UPDATE 1
+set HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK 1
+set HOMEBREW_NO_INSTALL_CLEANUP 1
+set HOMEBREW_NO_ANALYTICS 1
+
+set CARGO_NET_GIT_FETCH_WITH_CLI true
+
+alias e $HOME/usr/bin/e
+
+alias p   $HOME/usr/bin/play
+
+alias fd  fd --prune
+alias fdh fd --prune --no-ignore-vcs -H -E '.git/'
+alias rg  rg -S
+alias rgh rg --hidden -S -g '!.git'
+alias du  duf
+
+alias pp  procs
+
+alias syncthing syncthing serve --no-port-probing --no-browser --no-upgrade --gui-address='http://127.0.0.1:6969'
+alias wol "$HOME/usr/bin/wol" '7c:83:34:bd:05:c4'
+alias tu '/Applications/Tailscale.app/Contents/MacOS/Tailscale' up
+alias td '/Applications/Tailscale.app/Contents/MacOS/Tailscale' down
+
+alias gaa /opt/homebrew/bin/git add --all
+alias gcm /opt/homebrew/bin/git commit -m
+alias gd  /opt/homebrew/bin/git d
+alias gdd /opt/homebrew/bin/git diff --name-only --diff-filter=U
+alias gdc /opt/homebrew/bin/git dc
+alias gl  /opt/homebrew/bin/git l
+alias gp  /opt/homebrew/bin/git push -u
+alias grv /opt/homebrew/bin/git remote -v
+alias gs  /opt/homebrew/bin/git status -sb
+alias gss /opt/homebrew/bin/git status -sb -uall
+
+alias tl tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" ls
+alias tn tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" new -s
+alias ta tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" a -t
+alias tk tmux -f "$XDG_CONFIG_HOME/tmux/tmux.conf" kill-session -t
+
