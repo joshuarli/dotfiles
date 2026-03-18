@@ -27,7 +27,7 @@ abbr --add e $EDITOR
 abbr --add l /bin/ls
 abbr --add ll /bin/ls -plAhG
 
-abbr --add p   $HOME/usr/bin/play
+abbr --add p   /Applications/Play.app/Contents/MacOS/play
 
 abbr --add fd  fd --prune
 abbr --add fdh fd --prune --no-ignore-vcs -H -E '.git/'

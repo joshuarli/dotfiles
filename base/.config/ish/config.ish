@@ -19,7 +19,7 @@ set CARGO_NET_GIT_FETCH_WITH_CLI true
 
 alias e $HOME/usr/bin/e
 
-alias p   $HOME/usr/bin/play
+alias p   /Applications/Play.app/Contents/MacOS/play
 
 alias fd  fd --prune
 alias fdh fd --prune --no-ignore-vcs -H -E '.git/'
